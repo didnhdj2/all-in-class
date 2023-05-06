@@ -1,12 +1,12 @@
 {
-  "name": "css-allin-class",
-  "version": "1.0.33",
+  "name": "all-in-class",
+  "version": "0.0.1",
   "description": "按需生成css，只需要写class名称即可",
   "private": false,
   "keywords": [],
   "author": "cmz",
   "license": "MIT",
-  "funding": "https://www.npmjs.com/package/css-allin-class",
+  "funding": "https://www.npmjs.com/package/all-in-class",
   "publishConfig": {
     "registry": "https://registry.npmjs.com"
   },

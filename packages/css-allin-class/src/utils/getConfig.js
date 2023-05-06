@@ -122,12 +122,6 @@ class ConfigLoader {
 					// 匹配预设和规则文件
 
 				}
-				// odcss({
-				// 	framework:'webpack',
-				// 	presets:[css()]
-				// })
-				// name[2]
-
 				// console.log('==== match[0] :', match);
 			}
 		}

@@ -59,23 +59,15 @@ export default function vitePlugin(userConfig, pluginShare) {
 			return null;
 		},
 		async transform(source, id) {
-			if (!id || !source) {
-				return {
-					code: source,
-					map: null
-				};
-			}
-			if(getEnv().isUniapp&&id.endsWith('App.vue')) {
-				return {
-					code: source,
-					map: null
-				};
-			};
+			const result = {code: source, map: null};
+			
+			if (!id || !source) return result;
+			if(getEnv().isUniapp&&id.endsWith('App.vue')) return result;
 			
 			if (id.endsWith('main.js') && server) {
 				let ms = new MagicString(source)
 				ms.appendRight(source.length, `\nimport virtual from '${virtualModuleId}'\n`)
-				// ms.appendLeft(0, `import virtual from '${virtualModuleId}'\n`)
+				
 				return {
 					code: ms.toString(),
 					map: ms.generateMap({
@@ -85,13 +77,15 @@ export default function vitePlugin(userConfig, pluginShare) {
 					})
 				}
 			}
-
+			
+			// 给App.vue添加css占位
 			if (notAddCssPlaceholder && id.includes('/App.vue?vue&type=style') && (id.endsWith('lang.css') || id
 					.endsWith('lang.scss'))) {
-				// console.log('==== id :', id);
+				
 				let ms = new MagicString(source)
 				ms.appendLeft(0, `${CSS_PLACE_HOLDER_KEY}\n`)
 				notAddCssPlaceholder = false
+				
 				return {
 					code: ms.toString(),
 					map: ms.generateMap({
@@ -101,52 +95,7 @@ export default function vitePlugin(userConfig, pluginShare) {
 					})
 				}
 			}
-			if (id.endsWith('App.vue')) {
-				// // 增加css引用
-				// 	let ms = new MagicString(source)
-				// 	ms.appendLeft(0, `<style>\n@import '${virtualModuleId}'\n</style>`)
-				// 	return {
-				// 		code: ms.toString(),
-				// 		map: ms.generateMap({
-				// 			file: id,
-				// 			hires: true,
-				// 			source: id, // 原始文件路径
-				// 		})
-				// 	}
-			}
 
-			// if (id.endsWith('.vue') && !source.includes('<template>') && !id.toLowerCase().endsWith('app.vue')) {
-
-			// 	if (!errCache.get(1)) {
-			// 		errCache.set(1, true)
-			// 		// for (let i = 0; i < 16; i++) {
-			// 		//   for (let j = 0; j < 16; j++) {
-			// 		//     const code = i * 16 + j;
-			// 		//     process.stdout.write(`\u001b[38;5;${code}m ${'pl'+code.toString().padEnd(5)}`);
-			// 		//   }
-			// 		//   process.stdout.write('\u001b[0m\n');
-			// 		// }
-			// 		// console.log('\x1b[33m%s\x1b[0m', 'Hello world');
-			// 		let start = `  配置项错误：\n  export default defineConfig({\n    plugins: [`
-			// 		let config = `      allin({ presets: [preset()] }),\n      vue(),`
-			// 		let end =
-			// 			`    ],\n    resolve: {\n      alias: {\n        '@': fileURLToPath(new URL('./src',\n          import.meta.url))\n      }\n    }\n  })`
-
-			// 		if (!env.isUniapp) {
-			// 			// console.log('\u001b[38;5;1m%s\x1b[0m', start);
-			// 			// console.log('\u001b[38;5;3m%s\x1b[0m', config);
-			// 			// console.log('\u001b[38;5;1m%s\x1b[0m', end);
-			// 			// console.log('\u001b[38;5;5m%s\x1b[0m', `  解决方案：在配置文件中把 allin 放在 vue 的前面，如上面黄色部分`);
-			// 		} else {
-			// 			console.error(start);
-			// 			console.error(config);
-			// 			console.error(end);
-			// 			console.warn(`  解决方案：在配置文件中plugins数组把 allin 放在 vue 的前面`);
-			// 		}
-
-			// 	}
-			// }
-			
 			
 			if (process.env.UNI_PLATFORM === 'mp-weixin') {
 				// 微信小程序,在前,
@@ -161,7 +110,6 @@ export default function vitePlugin(userConfig, pluginShare) {
 						userConfig
 					}, id)
 
-					// cssOutPut() 
 					if (server) injectCssToBrowser()
 					return {
 						code,
@@ -178,7 +126,6 @@ export default function vitePlugin(userConfig, pluginShare) {
 					userConfig
 				}, id)
 
-				// cssOutPut() 
 				if (server) injectCssToBrowser()
 				return {
 					code,
@@ -186,10 +133,7 @@ export default function vitePlugin(userConfig, pluginShare) {
 				}
 			}
 
-			return {
-				code: source,
-				map: null
-			};
+			return result
 		},
 		// h5才会生效
 		async transformIndexHtml(html) {
@@ -202,8 +146,7 @@ export default function vitePlugin(userConfig, pluginShare) {
 			)
 		},
 		async generateBundle(options, bundle) {
-			const files = Object.keys(bundle)
-				.filter(i => i.endsWith('.css'))
+			const files = Object.keys(bundle).filter(i => i.endsWith('.css'))
 			for (const file of files) {
 				const code = bundle[file].source
 				if (code.includes(CSS_PLACE_HOLDER_KEY)) {
@@ -211,7 +154,6 @@ export default function vitePlugin(userConfig, pluginShare) {
 					bundle[file].source = code.replace(CSS_PLACE_HOLDER_KEY, outCssStr)
 					console.log('css生成了');
 					break
-					// console.log('==== 包含了:', file, outCssStr);
 				} 
 			}
 		},
@@ -232,12 +174,12 @@ export default function vitePlugin(userConfig, pluginShare) {
 			}
 		});
 	}
-	function sleep() {
+	function sleep(time=3000) {
 		return new Promise((resolve, reject) => {
 			const timer = setTimeout(() => {
 				resolve()
 				clearTimeout(timer)
-			}, 3000);
+			}, time);
 		})
 	}
 }

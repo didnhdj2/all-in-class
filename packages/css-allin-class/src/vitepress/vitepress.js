@@ -67,7 +67,7 @@ export default function vitePlugin(userConfig) {
 			// resolvedConfig.vitepress.transformHead
 			// env.MODE === 'production' 
 
-			let transformHead = function(context) {
+			let transformHead = function (context) {
 				// console.log('transformHead执行');
 				context.head.unshift(['link',
 					{
@@ -94,7 +94,7 @@ export default function vitePlugin(userConfig) {
 					originalMethod1 = descriptor.value;
 
 					// 重写方法
-					descriptor.value = function() {
+					descriptor.value = function () {
 						originalMethod1.apply(this, arguments);
 					}
 
@@ -107,7 +107,7 @@ export default function vitePlugin(userConfig) {
 			}
 
 			let originalMethod
-			let transformHtml = function() {
+			let transformHtml = function () {
 				// console.log('transformHtml执行了');
 				originalMethod?.apply(this, arguments);
 			}
@@ -144,13 +144,14 @@ export default function vitePlugin(userConfig) {
 			if (id === virtualModuleId) {
 				return resolvedVirtualModuleId
 			}
-			return null; // other ids should be handled as usually
+			return null;
 		},
 		load(id) {
-			if (id === resolvedVirtualModuleId && !server) {
-				return '.csssss-placehold{color:red;}'
+			if (id !== resolvedVirtualModuleId) {
+				return null
 			}
-			if (id === resolvedVirtualModuleId && server) {
+
+			if (server) {
 				return `
 				import {createHotContext as __vite__createHotContext1} from "/@vite/client";
 				import.meta.hot = __vite__createHotContext1("@id/__x00__virtual:my-module");
@@ -168,13 +169,11 @@ export default function vitePlugin(userConfig) {
 				  })
 				}
 				`
+			} else {
+				return '.csssss-placehold{color:red;}'
 			}
-			return null; // other ids should be handled as usually
 		},
 		shouldTransformCachedModule({ code, id, ast }) {
-			// if(id === 'C:/Users/xiaochenaixiaojuan/Documents/HBuilderProjects/a-word/App.vue?vue&type=style&index=0&lang.css'){
-			// 	return id;
-			// }
 			return null;
 		},
 		async transform(source, id) {
@@ -245,20 +244,16 @@ export default function vitePlugin(userConfig) {
 				/<\/head>/,
 				`	<style type="text/css" data-vite-dev-id="public.css">${outputStr}</style>\n	<\/head>`
 			)
-			// <script type="module" src="/@vite/client"></script>
-			// <script type="module" src="/@fs/D:\file\HBuilderProjects\uniapp-css-loader\node_modules\.pnpm\registry.npmmirror.com+vitepress@1.0.0-alpha.73\node_modules\vitepress\dist\client\app/index.js"></script>
 		},
 		renderStart() {
 			// console.log('==== renderStart :');
-
-
 		},
 		renderChunk(code, chunk, options, meta) {
 			// console.log('==== chunk.fileName :', chunk.fileName);
 			// console.log('==== Object.keys(chunk) :', Object.keys(chunk));
 		},
 		async generateBundle(options, bundle) {
-			let outputStr = genOutputStr({ outputCss: outputCssCache ,join:''})
+			let outputStr = genOutputStr({ outputCss: outputCssCache, join: '' })
 			this.emitFile({
 				type: 'asset',
 				fileName: csspath1,
@@ -275,7 +270,6 @@ export default function vitePlugin(userConfig) {
 		},
 		buildEnd(html) {
 			// console.log('==== buildEnd 11 :', html);
-			// C:/Users/xiaochenaixiaojuan/Documents/HBuilderProjects/a-word/public.css
 		},
 	};
 
@@ -283,7 +277,6 @@ export default function vitePlugin(userConfig) {
 		try {
 			fs.writeFile(cssOutPutFilePath, outputStr, "utf-8", (err) => {
 				if (err) {
-					// throw new Error("写入数据失败");
 					console.log('==== 写入数据失败 :');
 				}
 			});

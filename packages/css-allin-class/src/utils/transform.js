@@ -4,7 +4,7 @@ import MagicString from 'magic-string'
 import { matchClassToken } from '../styles';
 const parser = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
-const t = require('@babel/types');
+// const t = require('@babel/types');
 const generate = require('@babel/generator').default;
 import { parse as parserparser } from "@vue/compiler-sfc";
 
@@ -86,7 +86,9 @@ function parseVue(code, classTokens, id) {
 			})
 		}
 	}
-
+	
+	// TODO
+	// 优化代码
 	walkTree(ast, {
 		script: (script) => {
 			// 交给bable
@@ -107,16 +109,10 @@ function parseVue(code, classTokens, id) {
 			const tokens = content.split(/\s+/g)
 			// console.log('==== tokens :', tokens);
 			classTokens.push(...tokens)
-			// {
-			// 	content,
-			// 	tokens
-			// }
-			// // 找到字符串 "ddddd" 的位置
-			// const index = ms.indexOf('ddddd')
+			
 
-			// // 修改字符串
-			// ms.overwrite(index, index + 5, 'eeeee')
-			// // 替换%
+			
+			// 替换%为_
 			let offset = 0
 			let index
 			content.split('').map((item, itemIndex) => {
@@ -128,6 +124,7 @@ function parseVue(code, classTokens, id) {
 					}
 					let updateindex = index
 					ms.update(updateindex, updateindex + 1, '_')
+					
 					// let ssss = new MagicString(code)
 					// console.log('==== ssss.snip :', ssss.snip( updateindex, updateindex + 1 ).toString());
 				}
@@ -167,10 +164,7 @@ function parseVue(code, classTokens, id) {
 					});
 				}
 			}
-			// exp.constType: 0,
-			// console.log('==== prop.exp.content :', prop.exp.content);
-			// {header:iiii == 1}
-			// header?'header':'headerheader'
+
 		},
 		comment: (node) => {
 
@@ -188,9 +182,6 @@ function parseVue(code, classTokens, id) {
 }
 
 
-// function fun(str,newStr) {
-// 	let replacedStr = str.substring(0, index) + newStr + str.substring(index + newStr.length);
-// }
 export function getAst(source, id) {
 	let tree
 	// try {
