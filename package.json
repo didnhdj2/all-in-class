@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "build": "rimraf packages/*/dist &&  pnpm -r --filter=./packages/* run build",
+		"docs:build": "pnpm -r --filter=./packages/* run docs:build",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
@@ -46,7 +47,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/chenmeizhou/uniapp-css-loader.git"
+    "url": "https://github.com/meizhouchen/all-in-class.git"
   },
   "description": ""
 }

@@ -1,6 +1,6 @@
 import { defineConfig } from 'vitepress'
-import allin from '../../dist/index'
-import preset from '../../dist/preset'
+import allin from 'all-in-class'
+import preset from 'all-in-class/preset'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
 	vite: {

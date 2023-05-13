@@ -29,7 +29,7 @@
 		"pub": "npm publish --access public"
 	},
 	"devDependencies": {
-		"css-allin-class": "workspace:*"
+		
 	},
 	"dependencies": {
 		"drange": "^2.0.1",
