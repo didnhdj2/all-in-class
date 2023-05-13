@@ -53,8 +53,7 @@
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-polyfill-node": "^0.12.0",
     "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.34.1",
-		"all-in-class": "workspace:*"
+    "rollup-plugin-typescript2": "^0.34.1"
   },
   "dependencies": {
     "@babel/generator": "^7.21.3",
@@ -67,6 +66,7 @@
     "chalk": "^5.2.0",
     "postcss": "^8.4.21",
     "sass": "^1.59.3",
-    "webpack-sources": "^3.2.3"
+    "webpack-sources": "^3.2.3",
+		"all-in-class": "workspace:*"
   }
 }
