@@ -61,7 +61,7 @@ module.exports = {
 };
 ```
 
--**uniapp**
+- **uniapp**
 
 ```js
 const { allInClass } = require("css-allin-class");
