@@ -66,7 +66,12 @@ export default function vitePlugin(userConfig) {
 			// resolvedConfig.vitepress.root outDir
 			// resolvedConfig.vitepress.transformHead
 			// env.MODE === 'production' 
-
+			const base = resolvedConfig.vitepress.site?.base
+			if (base) {
+				csspath += base
+				csspath1 += base
+			}
+			
 			let transformHead = function (context) {
 				// console.log('transformHead执行');
 				context.head.unshift(['link',

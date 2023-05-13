@@ -10,6 +10,7 @@ export default defineConfig({
 			allin({ unit:'px', prefix:'a-', presets:[preset()]})
 		]
 	},
+	base: '/all-in-class/',
 	title: "allincss",
 	// titleTemplate: 'Custom Suffix',
 	// description: "A VitePress Site",
