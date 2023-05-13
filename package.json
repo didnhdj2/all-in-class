@@ -43,6 +43,24 @@
     "vue": "2"
   },
   "main": "alias.js",
+	"exports": {
+	  ".": {
+	    "require": "./dist/index.js",
+	    "import": "./dist/index.mjs"
+	  },
+	  "./all-in-class": {
+	    "require": "./packages/css-allin-class/src/index.js",
+	    "import": "./packages/css-allin-class/src/index.js"
+	  },
+	  "./preset.js": {
+	    "require": "./dist/preset.js",
+	    "import": "./dist/preset.mjs"
+	  },
+	  "./preset": {
+	    "require": "./dist/preset.js",
+	    "import": "./dist/preset.mjs"
+	  }
+	},
   "directories": {
     "test": "test"
   },

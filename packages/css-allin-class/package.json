@@ -39,10 +39,7 @@
     "rollup": "rollup -c",
     "rollup:red": "rollup -c  && node ./script/index.js",
     "rollup:w": "rollup -c -w",
-    "pub": "npm publish --access public",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "pub": "npm publish --access public"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",
@@ -66,7 +63,6 @@
     "chalk": "^5.2.0",
     "postcss": "^8.4.21",
     "sass": "^1.59.3",
-    "webpack-sources": "^3.2.3",
-		"all-in-class": "workspace:*"
+    "webpack-sources": "^3.2.3"
   }
 }

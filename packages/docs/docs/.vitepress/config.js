@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress'
-import { allin } from 'all-in-class'
-import { preset } from 'all-in-class/preset'
+import loader from 'css-loader'
+import allin from 'all-in-class'
+import preset from 'all-in-class/preset'
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
 	vite: {
@@ -8,31 +10,6 @@ export default defineConfig({
 			allin({ unit:'px', prefix:'a-', presets:[preset()]})
 		]
 	},
-	// async transformHtml(code, id, context) {
-	// 	aa.transformHtml(code, id, context)
-	// },
-	// async transformHead(context) {
-	// 	context.head.unshift( [ 'link',
-	// 	  {
-	// 	    rel: 'preload stylesheet',
-	// 	    href: '/assets/style1111111.d64e77a6.css',
-	// 	    as: 'style',
-	// 	    type: '',
-	// 	    crossorigin: ''
-	// 	  }])
-	// 	// console.log('==== context :', context);
-	// },
-	// interface TransformContext {
-	//   page: string // e.g. index.md (relative to srcDir)
-	//   assets: string[] // all non-js/css assets as fully resolved public URL
-	//   siteConfig: SiteConfig
-	//   siteData: SiteData
-	//   pageData: PageData
-	//   title: string
-	//   description: string
-	//   head: HeadConfig[]
-	//   content: string
-	// }
 	title: "allincss",
 	// titleTemplate: 'Custom Suffix',
 	// description: "A VitePress Site",

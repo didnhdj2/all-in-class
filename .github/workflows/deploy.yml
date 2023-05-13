@@ -21,12 +21,14 @@ jobs:
           node-version: 14
           cache: 'pnpm'
       - run: pnpm install
-      - name: Build
+			- name: BuildDocs
+			  run: pnpm build
+      - name: BuildDocs
         run: pnpm docs:build
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
-          path: packages/css-allin-class/docs/.vitepress/dist
+          path: packages/docs/docs/.vitepress/dist
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v1
