@@ -5,7 +5,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "rimraf packages/*/dist &&  pnpm -r --filter=./packages/* run build",
+    "build": "pnpm -r --filter=./packages/* run build",
 		"docs:build": "pnpm -r --filter=./packages/* run docs:build",
     "test": "vitest",
     "coverage": "vitest run --coverage"
