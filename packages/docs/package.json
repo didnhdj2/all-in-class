@@ -10,11 +10,6 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c",
-    "rollup": "rollup -c",
-    "rollup:red": "rollup -c  && node ./script/index.js",
-    "rollup:w": "rollup -c -w",
-    "pub": "npm publish --access public",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs"
