@@ -7,7 +7,6 @@ import { getEnv } from '../utils/envInfo.js'
 import { genOutputStr } from '../utils/style'
 import { normalizeAbsolutePath } from '../utils/path'
 import { reloadConfig } from '../utils/getConfig'
-// import { setPlugin } from './loader'
 import { transformVueClass } from '../utils/transform'
 import { genStyle } from '../styles'
 
@@ -74,7 +73,7 @@ class WebpackPlugin {
 		this.useTransformLoader()
 		this.watchConfigChange()
 		this.injectInitStyleSheetEvent()
-		this.injectOutputCssEvent()
+		// this.injectOutputCssEvent()
 
 		this.UpdateAppCssPlugin()
 	}
@@ -132,21 +131,6 @@ class WebpackPlugin {
 			fun('.app-css-placeholder{color:#2c3e50;}')
 		}
 
-		// let code = compilation.assets[file].source().toString()
-		// if (code.includes('.app-css-placeholder{color:#2c3e50}')) {
-		// 	// h5
-		// 	let outputStr = genOutputStr({ outputCss: this.outputCssCache })
-		// 	code = code.replace('.app-css-placeholder{color:#2c3e50}', outputStr
-		// 		.replace(/\n*/g, ''))
-		// 	compilation.assets[file] = new RawSource(code)
-
-		// }else if (code.includes('.app-css-placeholder{color:#2c3e50;}')) {
-		// 	// app，小程序
-		// 	let outputStr = genOutputStr({ outputCss: this.outputCssCache })
-		// 	code = code.replace('.app-css-placeholder{color:#2c3e50;}', outputStr
-		// 		.replace(/\n*/g, ''))
-		// 	compilation.assets[file] = new RawSource(code)
-		// }
 	}
 	outputCssTofile(outputStr) {
 		// 输出css到文件进行预览
@@ -163,8 +147,7 @@ class WebpackPlugin {
 			ident: PLUGIN_NAME + '-loader-ident',
 			options: {}
 		}]
-		let plugin = this
-		// setPlugin(this)
+		
 		if (env.isUniapp) {
 			delete useLoader[0].ident // uniapp的微信小程序 不支持ident的存在
 		}

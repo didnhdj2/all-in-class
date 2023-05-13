@@ -1,12 +1,12 @@
 {
-  "name": "css-allin-class",
-  "version": "1.0.33",
+  "name": "all-in-class",
+  "version": "0.0.1",
   "description": "按需生成css，只需要写class名称即可",
   "private": false,
   "keywords": [],
   "author": "cmz",
   "license": "MIT",
-  "funding": "https://www.npmjs.com/package/css-allin-class",
+  "funding": "https://www.npmjs.com/package/all-in-class",
   "publishConfig": {
     "registry": "https://registry.npmjs.com"
   },
@@ -35,14 +35,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup:red",
+    "build": "pnpm rollup:red",
     "rollup": "rollup -c",
     "rollup:red": "rollup -c  && node ./script/index.js",
     "rollup:w": "rollup -c -w",
-    "pub": "npm publish --access public",
-    "docs:dev": "vitepress dev docs",
-    "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "pub": "pnpm publish --access public"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",

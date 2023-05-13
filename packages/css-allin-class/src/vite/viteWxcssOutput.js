@@ -17,7 +17,6 @@ export default function vitePlugin(userConfig, pluginShare) {
 					bundle[file].source = code.replace(CSS_PLACE_HOLDER_KEY, outCssStr)
 					console.log('wxss生成了');
 					break
-					// console.log('==== 包含了:', file, outCssStr);
 				} 
 			}
 		}

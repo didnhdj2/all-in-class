@@ -9,5 +9,6 @@ export default function vite(userConfig) {
 	if(process.env.UNI_PLATFORM === 'mp-weixin'){
 		plugins.push(viteWxcssOutput(userConfig, pluginShare))
 	}
+	
 	return plugins
 }

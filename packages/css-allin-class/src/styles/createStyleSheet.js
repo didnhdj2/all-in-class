@@ -94,10 +94,6 @@ async function genRulesByCssFile(userConfig) {
 	let rules = await getFileCss(fileOrDir, userConfig)
 
 	return rules
-	// else {
-	// 	error('userConfig.cssFile 类型错误，值只能是对象或者字符串')
-	// 	return {}
-	// }
 }
 
 function getFileCss(fileOrDir, userConfig) {

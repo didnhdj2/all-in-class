@@ -1,10 +1,12 @@
 {
   "name": "@all/monorepo",
+	"packageManager": "pnpm@7.18.2",
   "version": "1.0.0",
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "rimraf packages/*/dist &&  pnpm -r --filter=./packages/* run build",
+    "build": "pnpm -r --filter=./packages/* run rollup",
+		"docs:build": "pnpm -r --filter=./packages/* run docs:build",
     "test": "vitest",
     "coverage": "vitest run --coverage"
   },
@@ -41,12 +43,30 @@
     "vue": "2"
   },
   "main": "alias.js",
+	"exports": {
+	  ".": {
+	    "require": "./dist/index.js",
+	    "import": "./dist/index.mjs"
+	  },
+	  "./all-in-class": {
+	    "require": "./packages/css-allin-class/src/index.js",
+	    "import": "./packages/css-allin-class/src/index.js"
+	  },
+	  "./preset.js": {
+	    "require": "./dist/preset.js",
+	    "import": "./dist/preset.mjs"
+	  },
+	  "./preset": {
+	    "require": "./dist/preset.js",
+	    "import": "./dist/preset.mjs"
+	  }
+	},
   "directories": {
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/chenmeizhou/uniapp-css-loader.git"
+    "url": "https://github.com/meizhouchen/all-in-class.git"
   },
   "description": ""
 }
