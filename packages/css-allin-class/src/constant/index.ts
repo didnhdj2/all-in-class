@@ -1,5 +1,5 @@
-export const PLUGIN_NAME = 'plugin-prefixed-allin-class'
-export const PLUGIN_PREFIX = 'ALLIN_CLASS'
+export const PLUGIN_NAME = 'plugin-prefixed-all-in-class'
+export const PLUGIN_PREFIX = 'ALL_IN_CLASS'
 export const POLYFILL_ID = 'allinclass.css'
 export const CSS_PLACE_HOLDER_KEY = '.ALLIN_CSS_PLACE_HOLDER_KEY{color:red}'
 export const VITE_HMR_CONTENT = `export const msg = "from virtual module";

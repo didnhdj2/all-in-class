@@ -35,10 +35,10 @@ export function matchClassToken(content = '', fun) {
 
 			continue
 		} else
-		if (items && items.slice(1).startsWith('{')) {
-			// 对象形式
-			continue
-		}
+			if (items && items.slice(1).startsWith('{')) {
+				// 对象形式
+				continue
+			}
 		fun && fun(items)
 
 		let className = items.match(regword)?.filter((item) => !numberRef.test(item)) || [];
@@ -52,14 +52,14 @@ export function matchClassToken(content = '', fun) {
 /**
  * 获取content中定义的 css样式名称
  * @param {object} styleSheet 
- * @param {Array} tokens 
+ * @param {Array<string>} tokens 
  * @return {Array} 数组 css样式名称 
  */
 export function genStyle(tokens, plugin, id) {
 
 	let { styleSheet, outputCssCache, modelsCssCache, userConfig } = plugin
 	const modelsCss = modelsCssCache[id] = modelsCssCache[id] || []
-	
+
 	// 老数据中有, 新数据没有的, 减掉
 	const reduced = modelsCss.filter(token => {
 		if (!tokens.includes(token)) {
@@ -90,7 +90,7 @@ export function genStyle(tokens, plugin, id) {
 		}
 	});
 	modelsCssCache[id] = tokens
-	
+
 	return {
 		reduced,
 		added,
@@ -104,13 +104,13 @@ export function genStyle(tokens, plugin, id) {
  * @param {object} styleSheet 样式表
  */
 export function genCssValue(token, styleSheet, userConfig) {
-	
+
 	let noFixToken = token
-	if(userConfig.prefix && noFixToken.startsWith(userConfig.prefix)){
+	if (userConfig.prefix && noFixToken.startsWith(userConfig.prefix)) {
 		const regexp = RegExp(userConfig.prefix);
 		noFixToken = noFixToken.replace(regexp, '')
 	}
-	
+
 	const { staticRules, dynamicRules, dynamicCompRules } = styleSheet
 	const value = staticRules[token] ||
 		getDynamicCssValue(noFixToken, dynamicRules) ||
@@ -154,7 +154,7 @@ export function getDynamicCssValue(token, dynamicRules) {
 
 		if (isObject(res)) {
 			let [k, v] = Object.entries(res).flat()
-			return `${k}:${v.endsWith(';')?v:v+';'}`
+			return `${k}:${v.endsWith(';') ? v : v + ';'}`
 		}
 
 	}
@@ -283,12 +283,12 @@ export function electCompRules(preset, staticRules, dynamicRules) {
 	if (isObject(preset.composition)) {
 		composition = Object.entries(preset.composition)
 	} else
-	if (isArray(preset.composition)) {
-		composition = preset.composition
-	} else {
-		error('配置问题：组合规则类型错误，仅支持数组和对象的形式。')
-		return { dynamicCompRules }
-	}
+		if (isArray(preset.composition)) {
+			composition = preset.composition
+		} else {
+			error('配置问题：组合规则类型错误，仅支持数组和对象的形式。')
+			return { dynamicCompRules }
+		}
 
 	for (let rule of composition) {
 		if (isArray(rule) && rule[0] && rule[1]) {

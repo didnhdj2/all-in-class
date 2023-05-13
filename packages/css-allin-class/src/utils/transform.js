@@ -1,5 +1,4 @@
 import { getEnv } from './envInfo';
-import { parse } from "@vue/compiler-dom";
 import MagicString from 'magic-string'
 import { matchClassToken } from '../styles';
 const parser = require('@babel/parser');
@@ -20,7 +19,7 @@ export function transformVueClass(source, id) {
 		let res = parseVue(source, classTokens, id)
 		code = res.code
 		map = res.map
-		
+
 	} else {
 		code = parseJsx(source, classTokens)
 		let ms = new MagicString(source)
@@ -86,7 +85,7 @@ function parseVue(code, classTokens, id) {
 			})
 		}
 	}
-	
+
 	// TODO
 	// 优化代码
 	walkTree(ast, {
@@ -109,22 +108,22 @@ function parseVue(code, classTokens, id) {
 			const tokens = content.split(/\s+/g)
 			// console.log('==== tokens :', tokens);
 			classTokens.push(...tokens)
-			
 
-			
+
+
 			// 替换%为_
 			let offset = 0
 			let index
 			content.split('').map((item, itemIndex) => {
 				if (['%', '#', '.'].includes(item)) {
-					
+
 					index = code.indexOf(item, itemIndex + prop.loc.start.offset + offset);
 					if (index !== -1) {
 						offset = index - itemIndex - prop.loc.start.offset
 					}
 					let updateindex = index
 					ms.update(updateindex, updateindex + 1, '_')
-					
+
 					// let ssss = new MagicString(code)
 					// console.log('==== ssss.snip :', ssss.snip( updateindex, updateindex + 1 ).toString());
 				}
@@ -134,18 +133,18 @@ function parseVue(code, classTokens, id) {
 		propBindClass: (prop) => {
 			let content = prop?.exp?.content
 			if (!content) return
-			
+
 			// 匹配内容
 			let matchs = content.match(/'([^']+)'|"([^"]+)"/g)
-			if(matchs){
+			if (matchs) {
 				// console.log('==== content :', content);
 				// console.log('==== matchs :', matchs);
 				// match
 				let code1 = code
 				for (let match of matchs) {
-					const tokens = match.replace(/["']+/g,'').split(/\s+/g)
+					const tokens = match.replace(/["']+/g, '').split(/\s+/g)
 					classTokens.push(...tokens)
-					
+
 					let offset = 0
 					let index
 					match.split('').map((item, itemIndex) => {
@@ -157,7 +156,7 @@ function parseVue(code, classTokens, id) {
 							let updateindex = index
 							code1 = code1.substring(0, updateindex) + '_' + code1.substring(updateindex + 1);
 							ms.update(updateindex, updateindex + 1, '_')
-							
+
 							// let ssss = new MagicString(code)
 							// console.log('==== ssss.snip :', ssss.snip( updateindex, updateindex + 1 ).toString());
 						}
@@ -245,12 +244,12 @@ function walkTree(node, options = {}) {
 function parseJsx(source, classTokens) {
 	let ast
 	try {
-		ast = parser.parse(source, { sourceType: "module", plugins: ["jsx", "flow", ] })
+		ast = parser.parse(source, { sourceType: "module", plugins: ["jsx", "flow",] })
 	} catch (err) {
 		// console.log('==== err :', err);
 	}
 	let env = getEnv()
-	
+
 	traverse(ast, {
 		ObjectProperty(path) {
 			// 插入配置文件代码
