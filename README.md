@@ -1,5 +1,7 @@
 # <center>all-in-class</center>
 
+## 文档
+[中文在线文档](https://meizhouchen.github.io/all-in-class/)
 ## 项目简介
 
 受 unocss 项目启发的一款 css 生成插件，支持 uniapp，vite，webpack，支持按需生成，支持层叠权重覆盖，减少 css 体积，支持自定义样式，可灵活配置生成规则。
