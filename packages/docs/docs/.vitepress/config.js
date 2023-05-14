@@ -49,7 +49,20 @@ export default defineConfig({
 				{
 					text: '预设样式',
 					items: [
-						{ text: 'line', link: '/guide/preset/line' },
+						{ text: 'line省略', link: '/guide/preset/line' },
+						{ text: 'border边框', link: '/guide/preset/border' },
+						{ text: 'color颜色', link: '/guide/preset/color' },
+						{ text: 'shadow阴影', link: '/guide/preset/shadow' },
+						{ text: '上下左右', link: '/guide/preset/top' },
+						{ text: '宽高', link: '/guide/preset/widthHeight' },
+						{ text: 'line-height行高', link: '/guide/preset/lineHeight' },
+						{ text: 'poiter鼠标样式', link: '/guide/preset/poiter' },
+						{ text: 'm、p边距', link: '/guide/preset/marginPadding' },
+						{ text: 'font字体', link: '/guide/preset/font' },
+						{ text: 'translate变换', link: '/guide/preset/translate' },
+						{ text: 'flex', link: '/guide/preset/flex' },
+						{ text: 'display', link: '/guide/preset/display' },
+						{ text: 'zIndex', link: '/guide/preset/zIndex' },
 					]
 				}
 			],
