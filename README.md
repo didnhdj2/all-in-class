@@ -18,7 +18,7 @@
 1. 安装
 
 ```js
-pnpm i css-allin-class -D
+pnpm i all-in-class -D
 ```
 
 2. 配置
@@ -29,7 +29,7 @@ pnpm i css-allin-class -D
 
 ```js
 // vite.config.js
-import { allInClass } from "css-allin-class";
+import { allInClass } from "all-in-class";
 export default {
   plugins: [
     allInClass({
@@ -47,7 +47,7 @@ export default {
 
 ```js
 //webpack.config.js
-const { allInClass } = require("css-allin-class");
+const { allInClass } = require("all-in-class");
 module.exports = {
   plugins: [
     allInClass({
@@ -64,7 +64,7 @@ module.exports = {
 - **uniapp**
 
 ```js
-const { allInClass } = require("css-allin-class");
+const { allInClass } = require("all-in-class");
 module.exports = {
   plugins: [
     allInClass({
