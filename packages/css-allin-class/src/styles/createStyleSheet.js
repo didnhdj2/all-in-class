@@ -5,7 +5,7 @@ import { presetRules } from "../presetRules"
 import { error, isArray, isFunction, isObject, isString, isPromise, warn } from "../utils";
 const sass = require('sass');
 // import postcss from "postcss"
-import { getEnv } from '../utils/envInfo.js'
+import { getEnv } from '../utils/envInfo.ts'
 import { addFix, removeFix } from "../utils/style";
 
 // 创建规则的基础匹配表
@@ -33,7 +33,7 @@ export async function createStyleSheet({ userConfig }) {
 		}
 
 	}
-	
+
 	// 合并用户配置
 	if (preset.rules && isArray(userConfig.rules)) {
 		preset.rules = preset.rules.concat(userConfig.rules)
@@ -75,7 +75,7 @@ export async function createStyleSheet({ userConfig }) {
  * TODO
  * less转换的问题
  */
-async function genRulesByCssFile(userConfig) {
+export async function genRulesByCssFile(userConfig) {
 	const envInfo = getEnv()
 	// cssFile: {
 	// 	input:'./style/index.scss',
@@ -96,7 +96,7 @@ async function genRulesByCssFile(userConfig) {
 	return rules
 }
 
-function getFileCss(fileOrDir, userConfig) {
+export function getFileCss(fileOrDir, userConfig) {
 	return new Promise((rsl, reject) => {
 		fs.stat(fileOrDir, async (err, stats) => {
 			if (err) {
@@ -197,7 +197,7 @@ function writeFile(str) {
 		err) {
 		if (err) {
 			throw new Error("写入数据失败");
-		} else {}
+		} else { }
 	});
 }
 
@@ -227,11 +227,11 @@ function lessCompile(lessInput) {
 	return new Promise((rsl, reject) => {
 		less.render(lessInput)
 			.then((output) => {
-					// output.css = string of css
-					// output.map = string of sourcemap
-					// output.imports = array of string filenames of the imports referenced
-					rsl(output.css)
-				},
+				// output.css = string of css
+				// output.map = string of sourcemap
+				// output.imports = array of string filenames of the imports referenced
+				rsl(output.css)
+			},
 				(err) => {
 					error(err + '')
 					rsl('')

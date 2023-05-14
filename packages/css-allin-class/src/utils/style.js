@@ -1,8 +1,8 @@
 import { PLUGIN_PREFIX } from "../constant";
-import { getEnv } from "./envInfo";
+import { getEnv } from "./envInfo.ts";
 
 export function addFix(val, prefix, suffix) {
-	return `${prefix?prefix:''}${val}${suffix?suffix:''}`
+	return `${prefix ? prefix : ''}${val}${suffix ? suffix : ''}`
 }
 
 export function removeFix(val, prefix, suffix) {
@@ -57,6 +57,13 @@ export function removeFix(val, prefix, suffix) {
  */
 // .cc{color:#2c3e50;} === .cc{color:#2c3e50} 去掉最后一个;可以缩小体积 只在h5
 export function genOutputStr({ outputCss, join }) {
+	// TODO
+	// 把每次vue文件变动，维护最终样式使用的数量，改为这儿最后输出时，根据各模块匹配生成
+
+	// 得到最终使用的class
+	const usedClass = []
+
+	// 生成最终输出的所有css样式
 	join = join !== undefined ? join : getEnv().join
 	const outputStr = Object.values(outputCss)
 		.filter(item => item.num > 0)
@@ -83,13 +90,13 @@ export function genOutputStr({ outputCss, join }) {
 				let fix = `.${rule}`
 				token = fix.repeat(iNum).slice(1)
 			}
-			
+
 			if (getEnv().isUniapp && getEnv().uniappPlatfrom === 'h5') {
 				// rpx->rem
 				item.value = item.value.split(';').filter(Boolean)
-					.map(val => val.trim().replace(/(\d*\.*\d+)rpx$/, (...match) => `${match[1]/32}rem`)).join(';')
+					.map(val => val.trim().replace(/(\d*\.*\d+)rpx$/, (...match) => `${match[1] / 32}rem`)).join(';')
 			};
-			
+
 			return `.${token}{${item.value}}`
 		})
 		.join(join);

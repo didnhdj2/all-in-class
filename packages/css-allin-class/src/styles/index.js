@@ -1,7 +1,7 @@
 import { error, isArray, isFunction, isObject, isString, warn } from '../utils';
 import { presetRules } from '../presetRules';
 import { addFix } from '../utils/style';
-import { getEnv } from '../utils/envInfo.js'
+import { getEnv } from '../utils/envInfo.ts'
 import { PLUGIN_PREFIX } from '../constant';
 
 
@@ -103,7 +103,7 @@ export function genStyle(tokens, plugin, id) {
  * @param {string} token class：p-10
  * @param {object} styleSheet 样式表
  */
-export function genCssValue(token, styleSheet, userConfig) {
+export function genCssValue(token, styleSheet, userConfig = {}) {
 
 	let noFixToken = token
 	if (userConfig.prefix && noFixToken.startsWith(userConfig.prefix)) {
@@ -116,10 +116,12 @@ export function genCssValue(token, styleSheet, userConfig) {
 		getDynamicCssValue(noFixToken, dynamicRules) ||
 		getDynamicCompCssValue(noFixToken, dynamicCompRules, staticRules, dynamicRules)
 
+	const type = token.endsWith('-i') ? 'important' : ''
+
 	return value && {
-		token, // flex
+		token, // fix-flex
 		noFixToken, // flex
-		type: '',
+		type,
 		num: 1,
 		value, // 'display:flex;'
 	}
