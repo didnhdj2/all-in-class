@@ -104,7 +104,7 @@ importers:
 
   packages/docs:
     specifiers:
-      all-in-class: workspace:^0.0.1
+      all-in-class: workspace:*
     dependencies:
       all-in-class: link:../css-allin-class
 
