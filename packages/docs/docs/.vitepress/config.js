@@ -7,11 +7,11 @@ import preset from 'all-in-class/preset'
 export default defineConfig({
 	vite: {
 		plugins: [
-			allin({ unit:'px', prefix:'a-', presets:[preset()]})
+			allin({ unit: 'px', prefix: 'a-', presets: [preset()] })
 		]
 	},
 	base: '/all-in-class/',
-	title: "allincss",
+	title: "all-in-class",
 	// titleTemplate: 'Custom Suffix',
 	// description: "A VitePress Site",
 	themeConfig: {
@@ -34,7 +34,7 @@ export default defineConfig({
 					items: [
 						{ text: '简介', link: '/guide/start' },
 						{ text: '为什么是', link: '/guide/why' },
-						{ text: '入门', link: '/guide/why' }
+						// { text: '入门', link: '/guide/why' }
 					]
 				},
 				{

@@ -3,7 +3,7 @@
 layout: home
 
 hero:
-  name: "lionCSS"
+  name: "all-in-class"
   text: ""
   tagline: 原子化 体积小 uniapp
   image:
