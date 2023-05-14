@@ -24,19 +24,7 @@ export const toNoRepeatArray = (value) => Array.from(new Set(value))
 
 export function noop() { }
 
-const consoleFactory = (name) => (value) => console.warn(`[${PLUGIN_PREFIX}]`, msg)
+const consoleFactory = (name) => (msg) => console.warn(`[${PLUGIN_PREFIX}]`, msg)
 export const warn = consoleFactory('warn')
 export const log = consoleFactory('log')
 export const error = consoleFactory('error')
-
-
-// export function warn(msg) {
-// 	console.warn(`[${PLUGIN_PREFIX}]`, msg)
-// }
-// export function log(msg) {
-// 	console.log(`[${PLUGIN_PREFIX}]`, msg)
-// }
-// export function error(msg) {
-// 	console.error(`[${PLUGIN_PREFIX}]`, msg)
-// }
-
