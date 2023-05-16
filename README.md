@@ -1,7 +1,9 @@
 # <center>all-in-class</center>
 
 ## 文档
+
 [中文在线文档](https://meizhouchen.github.io/all-in-class/)
+
 ## 项目简介
 
 受 unocss 项目启发的一款 css 生成插件，支持 uniapp，vite，webpack，支持按需生成，支持层叠权重覆盖，减少 css 体积，支持自定义样式，可灵活配置生成规则。
@@ -17,13 +19,13 @@
 
 ### 使用
 
-1. 安装
+#### **1. 安装**
 
 ```js
 pnpm i all-in-class -D
 ```
 
-2. 配置
+#### **2. 配置**
 
 [规则详细配置](./packages/README.md)
 
@@ -31,10 +33,10 @@ pnpm i all-in-class -D
 
 ```js
 // vite.config.js
-import { allInClass } from "all-in-class";
+import { allin } from "all-in-class";
 export default {
   plugins: [
-    allInClass({
+    allin({
       // 配置规则
       rules: {
         // 生成 w-10% 样式
@@ -49,10 +51,10 @@ export default {
 
 ```js
 //webpack.config.js
-const { allInClass } = require("all-in-class");
+const { allin } = require("all-in-class");
 module.exports = {
   plugins: [
-    allInClass({
+    allin({
       // 配置规则
       rules: {
         // 生成 w-10% 样式
@@ -64,23 +66,44 @@ module.exports = {
 ```
 
 - **uniapp**
+  vue2
 
 ```js
-const { allInClass } = require("all-in-class");
+// vue.config.js
+const { allin } = require("all-in-class");
+const { preset } = require("all-in-class/preset");
+
 module.exports = {
-  plugins: [
-    allInClass({
-      // 配置规则
-      rules: {
-        // 生成 w-10% 样式
-        "w-10%": "width: 10%;",
-      },
-    }),
-  ],
+  configureWebpack: {
+    plugins: [
+      allin({
+        presets: [preset()],
+      }),
+    ],
+  },
 };
 ```
 
-3. 使用
+vue3
+
+```js
+// vite.config.js
+import { defineConfig } from "vite";
+import uni from "@dcloudio/vite-plugin-uni";
+import { allin } from "all-in-class";
+import { preset } from "all-in-class/preset";
+
+export default defineConfig({
+  plugins: [
+    uni(),
+    allin({
+      presets: [preset()],
+    }),
+  ],
+});
+```
+
+#### **3. 使用**
 
 ```html
 <template>
@@ -101,7 +124,7 @@ module.exports = {
 
 > 使用!important 是危险的，因为没有办法对其进行覆盖,不建议使用
 
-### 权重后缀：-i + 数字
+**权重后缀：-i + 数字**
 
 例如：p-10-i3 后缀：-i3，表示需要增加 p-10 的权重 权重增加 3，数字越大，权重越高，
 生成 示例：
